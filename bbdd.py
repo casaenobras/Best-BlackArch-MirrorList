@@ -37,6 +37,7 @@ def llena_db():
         cursor.close()
         conn.close()
 
+#Retorna una lista ordenada los resultados en base a los parametros indicados
 def ordenar(modo_orden, limit):
 
     if os.path.isfile("mirrors.db"):
@@ -70,6 +71,7 @@ def ordenar(modo_orden, limit):
     else:
         print("\n[!] Utiliza el parámetro -t para hacer el test\n")
 
+#Retorna una lista con los datos de los ID's indicados
 def server_sel(select):
 
     try:

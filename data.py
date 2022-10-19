@@ -98,8 +98,6 @@ def get_datos(mirrorlist):
 
         cont_mirrors += 1
 
-    #print("\n[+] Todo OK!! Utiliza el parámetro -o para mostrar los resultados")
-
     return lista_datos
 
 def def_handler(sig, frame):

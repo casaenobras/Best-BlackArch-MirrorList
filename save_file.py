@@ -2,7 +2,7 @@ import shutil, sys, os
 
 from bbdd import server_sel
 
-
+#Reescribe el archivo blackarch-mirrorlist con los mirrors seleccionados descomentados
 def save_file(select):
 
     orin_file = "/etc/pacman.d/blackarch-mirrorlist"
