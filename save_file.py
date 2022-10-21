@@ -1,44 +1,53 @@
-import shutil, sys, os
+import shutil, sys, os, requests
 
 from bbdd import server_sel
 
-#Reescribe el archivo blackarch-mirrorlist con los mirrors seleccionados descomentados
+
+# Create a backup of "blackarch-mirrorlist", update it from the official page and 
+# uncomments selected mirrors
 def save_file(select):
 
-    orin_file = "/etc/pacman.d/blackarch-mirrorlist"
-    back_file = "/etc/pacman.d/blackarch-mirrorlist.OLD"
+    url_mirrorList = "https://raw.githubusercontent.com/BlackArch/blackarch-site/master/blackarch-mirrorlist"
+    original_file = "/etc/pacman.d/blackarch-mirrorlist"
+    backup_file = "/etc/pacman.d/blackarch-mirrorlist.OLD"
     sel = server_sel(select)
-    contenido = list()
+    content = list()
 
     euid = os.geteuid() 
     if euid != 0: 
         args = ['sudo', sys.executable] + sys.argv + [os.environ]
         os.execlpe('sudo', *args)
 
-    shutil.copy(orin_file, back_file)
+    shutil.copy(original_file, backup_file)
 
     try:
-        with open(orin_file, 'r') as file:
-            contenido = file.readlines()
-            for index, linea in enumerate(contenido):
+        data = requests.get(url_mirrorList).text
+        with open(original_file, 'w') as file:
+            file.writelines(data)
+        
+        file.close()
+        
+        with open(original_file, 'r') as file:
+            content = file.readlines()
+            for index, linea in enumerate(content):
                 if linea[0] != "#" and linea != "\n":
                     linea = "#" + linea
-                    contenido[index] = linea
+                    content[index] = linea
 
         file.close()
 
         for server in sel:
-            for index, linea in enumerate(contenido):
+            for index, linea in enumerate(content):
                 if server[1] in linea:
                     linea = linea[1:]
-                    contenido[index] = linea
+                    content[index] = linea
         
-        with open(orin_file, 'w') as file:
-            file.writelines(contenido)
+        with open(original_file, 'w') as file:
+            file.writelines(content)
         
         file.close()
     
     except:
 
-        shutil.copy(back_file, orin_file)
+        shutil.copy(backup_file, original_file)
     

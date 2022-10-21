@@ -2,10 +2,8 @@ import pycurl, sys, requests, re, random
 
 from pwn import *
 
-from time import sleep
-
  
-# Forma una lista con los servidores extraidos de la página oficial
+# Return a list with the servers extracted from the official website
 def get_mirrorList():
 
     url_mirrorList = "https://raw.githubusercontent.com/BlackArch/blackarch-site/master/blackarch-mirrorlist"
@@ -28,14 +26,14 @@ def get_mirrorList():
         
     return list_mirrors
 
-# Retorna un archivo aleatorio del servidor para realizar el test
-def get_random_file(mirrolist):
+# Returns a random file from the server to perform the test
+def get_random_file(mirrorlist):
 
     files = []
     file_name = ""
     file_size = 0
 
-    complet_server = mirrolist[0] + "blackarch/os/x86_64/"
+    complet_server = mirrorlist[0] + "blackarch/os/x86_64/"
 
     data = requests.get(complet_server).text
 
@@ -63,14 +61,14 @@ def get_random_file(mirrolist):
  
     return files[r]
 
-# Retorna una lista los datos obtenidos de cada servidor
+# Returns a list of data obtained from each server
 def get_datos(mirrorlist):
 
     file_test = "blackarch/os/x86_64/" + get_random_file(mirrorlist)
-    lista_datos = []
+    data_list = []
     n_mirrors = len(mirrorlist)
-    cont_mirrors = 1
-    progress = log.progress("Testeando")
+    acco_mirrors = 1
+    progress = log.progress("Testing")
 
     for server in mirrorlist:
         URL = server + file_test
@@ -79,7 +77,7 @@ def get_datos(mirrorlist):
         c.setopt(pycurl.CONNECTTIMEOUT, 10)
 
         try:
-            progress.status(server + " " + str(cont_mirrors) + " de " + str(n_mirrors))
+            progress.status(server + " " + str(acco_mirrors) + " of " + str(n_mirrors))
             c.perform_rb()
 
             CONNECT_TIME = c.getinfo(c.CONNECT_TIME)
@@ -87,22 +85,22 @@ def get_datos(mirrorlist):
             SIZE_DOWNLOAD = c.getinfo(c.SIZE_DOWNLOAD)
             SPEED_DOWNLOAD = c.getinfo(c.SPEED_DOWNLOAD)
 
-            tupla = (str(server), int(SIZE_DOWNLOAD / 1024), int(SPEED_DOWNLOAD / 1024), int(CONNECT_TIME * 1000), int(TOTAL_TIME * 1000))
+            server_result = (str(server), int(SIZE_DOWNLOAD / 1024), int(SPEED_DOWNLOAD / 1024), int(CONNECT_TIME * 1000), int(TOTAL_TIME * 1000))
 
-            lista_datos.append(tupla)
+            data_list.append(server_result)
             
         except :
             pass
 
         c.close()
 
-        cont_mirrors += 1
+        acco_mirrors += 1
 
-    return lista_datos
+    return data_list
 
 def def_handler(sig, frame):
-    print("\n[!] Saliendo.....\n")
+    print("\n[!] Exiting.....\n")
     sys.exit(1)
 
-#Ctrl+C
+# Ctrl+C
 signal.signal(signal.SIGINT, def_handler)

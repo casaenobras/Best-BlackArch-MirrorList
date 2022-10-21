@@ -1,7 +1,7 @@
 
 from genericpath import isfile
 
-
+# Print the table with the results
 def print_results(results):
 
     if isfile("mirrors.db"):

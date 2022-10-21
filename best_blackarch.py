@@ -9,8 +9,9 @@ from results_bash import *
 from save_file import *
 
 
-modo_orden = None
+order_mode = None
 
+# Show help
 def help_panel():
     
     print("\n[*] Este script testea los mirrors del repositorio de BlackArch, muestra los resultados y reemplaza el archivo blackarh-mirrorlist.")
@@ -54,13 +55,13 @@ def main(argv):
             help_panel()
             sys.exit()
         elif opt in ("-t"):
-            llena_db()
+            create_db()
         elif opt in ("-n"):
             pass
         elif opt in ("-o"):
-            modo_orden = arg
-            if modo_orden == "vel_descarga" or modo_orden == "tiempo_total" or modo_orden == "tiempo_conex":
-                print_results(ordenar(modo_orden, limit))
+            order_mode = arg
+            if order_mode == "vel_descarga" or order_mode == "tiempo_total" or order_mode == "tiempo_conex":
+                print_results(ordenar(order_mode, limit))
             else:
                 help_panel()
         elif opt in ("-s"):

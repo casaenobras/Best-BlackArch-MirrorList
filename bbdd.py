@@ -2,8 +2,8 @@ import sqlite3, os
 
 from data import *
 
-# Crea la base de datos con los resultados del test
-def llena_db():
+# Create the database with the test results
+def create_db():
 
     try:
         conn = sqlite3.connect('mirrors.db')
@@ -37,16 +37,16 @@ def llena_db():
         cursor.close()
         conn.close()
 
-#Retorna una lista ordenada los resultados en base a los parametros indicados
-def ordenar(modo_orden, limit):
+# Returns a list ordered the results based on the indicated parameters
+def ordenar(order_mode, limit):
 
     if os.path.isfile("mirrors.db"):
 
         if limit != "":
             limit = " LIMIT " + limit
 
-        if modo_orden == "vel_descarga":
-            modo_orden += " DESC"
+        if order_mode == "vel_descarga":
+            order_mode += " DESC"
         
         try:
             conn = sqlite3.connect('mirrors.db')
@@ -56,9 +56,9 @@ def ordenar(modo_orden, limit):
             print("\n[!] No se ha podido conectar con la base de datos mirror.db\n")
 
         try:
-            cursor.execute("SELECT * FROM repos ORDER BY " + modo_orden + limit)
-            filas = cursor.fetchall()
-            return filas
+            cursor.execute("SELECT * FROM repos ORDER BY " + order_mode + limit)
+            rows = cursor.fetchall()
+            return rows
 
         except:
             print("\n[!] No se pueden mostrar los resutaldos o no existen datos.")
@@ -71,7 +71,7 @@ def ordenar(modo_orden, limit):
     else:
         print("\n[!] Utiliza el parámetro -t para hacer el test\n")
 
-#Retorna una lista con los datos de los ID's indicados
+# Returns a list with the data of the indicated ID's
 def server_sel(select):
 
     try:
