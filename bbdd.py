@@ -15,7 +15,7 @@ def create_db():
     try:
         insert_results = """
         DROP TABLE IF EXISTS repos;
-        CREATE TABLE repos(ID integer PRIMARY KEY AUTOINCREMENT, mirror VARCHAR(100), tamaño_archivo INT(50), vel_descarga INT(20), tiempo_conex INT(20), tiempo_total INT(20));
+        CREATE TABLE repos(ID integer PRIMARY KEY AUTOINCREMENT, mirror VARCHAR(100), tamaño_archivo INT(50), download_speed INT(20), connect_time INT(20), total_time INT(20));
         """
 
         cursor.executescript(insert_results)
@@ -26,7 +26,7 @@ def create_db():
         print("\n[!] No se ha podido crear la tabla en mirrors.db\n")
 
     try:
-        cursor.executemany("INSERT INTO repos(mirror, tamaño_archivo, vel_descarga, tiempo_conex, tiempo_total) VALUES(?,?,?,?,?)", get_datos(get_mirrorList()))
+        cursor.executemany("INSERT INTO repos(mirror, tamaño_archivo, download_speed, connect_time, total_time) VALUES(?,?,?,?,?)", get_datos(get_mirrorList()))
 
         conn.commit()
 
@@ -38,14 +38,14 @@ def create_db():
         conn.close()
 
 # Returns a list ordered the results based on the indicated parameters
-def ordenar(order_mode, limit):
+def order(order_mode, limit):
 
     if os.path.isfile("mirrors.db"):
 
         if limit != "":
             limit = " LIMIT " + limit
 
-        if order_mode == "vel_descarga":
+        if order_mode == "download_speed":
             order_mode += " DESC"
         
         try:

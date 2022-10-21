@@ -14,19 +14,19 @@ order_mode = None
 # Show help
 def help_panel():
     
-    print("\n[*] Este script testea los mirrors del repositorio de BlackArch, muestra los resultados y reemplaza el archivo blackarh-mirrorlist.")
-    print("\n[*] Modo de uso:")
-    print("\n\t-h     Muestra este panel de ayuda")
-    print("\t-t     Realiza un nuevo test y guarda los resultados para examinarlos")
-    print("\t-o     Modo de ordenar los resultados:")
-    print("\t            vel_descarga: De mayor a menor velocidad de descarga")
-    print("\t            tiempo_total: De menor a mayor tiempo en completar todo el proceso")
-    print("\t            tiempo_conex: De menor a mayor tiempo en realizar la conexión")
-    print("\t-n     Funciona en conjunto con -o, indica el numero de mirrors a mostar")
-    print("\t-s     Descomenta los servidores seleccionados en el archivo blackarch-mirrorlist y comenta los restantes.")
-    print("\t            Crea una copia de seguridad blackarch-mirrorlist.old")
-    print("\t            Se necesitan permisos de root para reemplazar el archivo blackarch-mirrorlist.")
-    print("\t            El argumento són los ID,s de los resultados obtenidos. Ej: ./best_blackarch.py -s 20,53,30")
+    print("\n[*] This script tests the mirrors in the BlackArch repository, displays the results and replaces the blackarch-mirrorlist file for faster download and update")
+    print("\n[*] How to use:")
+    print("\n\t-h     Displays this help panel")
+    print("\t-t     Take a new test and save the results for examination")
+    print("\t-o     How to sort results:")
+    print("\t            download_speed: From highest to lowest download speed")
+    print("\t            total_time: From shorter to longer to complete the entire process")
+    print("\t            connect_time: From shorter to longer to make the connection")
+    print("\t-n     Works in conjunction with -o, indicates the number of mirrors to be displayed")
+    print("\t-s     Uncomments the selected servers in the blackarch-mirrorlist file and comments out the remaining servers.")
+    print("\t            Create a blackarch-mirrorlist.old backup")
+    print("\t            Root permissions are required to replace blackarch-mirrorlist file.")
+    print("\t            The argument is the ID,s of the results obtained. Ex: ./best_blackarch.py -s 20,53,30...")
 
 
 
@@ -60,8 +60,8 @@ def main(argv):
             pass
         elif opt in ("-o"):
             order_mode = arg
-            if order_mode == "vel_descarga" or order_mode == "tiempo_total" or order_mode == "tiempo_conex":
-                print_results(ordenar(order_mode, limit))
+            if order_mode == "download_speed" or order_mode == "total_time" or order_mode == "connect_time":
+                print_results(order(order_mode, limit))
             else:
                 help_panel()
         elif opt in ("-s"):
@@ -71,7 +71,7 @@ def main(argv):
             help_panel()
             sys.exit(1)
 
-    if ordenar is None:
+    if order is None:
         help_panel()
     
     
