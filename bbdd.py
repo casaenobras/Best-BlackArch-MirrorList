@@ -10,7 +10,7 @@ def create_db():
         cursor= conn.cursor()
 
     except:
-        print("\n[!] No se ha podido conectar con la base de datos mirror.db")
+        print("\n[!] Unable to connect to database mirror.db")
 
     try:
         insert_results = """
@@ -23,7 +23,7 @@ def create_db():
         conn.commit()
 
     except:
-        print("\n[!] No se ha podido crear la tabla en mirrors.db\n")
+        print("\n[!] Unable to create table in mirrors.db\n")
 
     try:
         cursor.executemany("INSERT INTO repos(mirror, tamaño_archivo, download_speed, connect_time, total_time) VALUES(?,?,?,?,?)", get_datos(get_mirrorList()))
@@ -31,7 +31,7 @@ def create_db():
         conn.commit()
 
     except:
-        print("\n[!] No se han podido introducir los datos en la base de datos\n")
+        print("\n[!] Unable to enter data into database\n")
 
     finally:
         cursor.close()
@@ -53,7 +53,7 @@ def order(order_mode, limit):
             cursor= conn.cursor()
 
         except:
-            print("\n[!] No se ha podido conectar con la base de datos mirror.db\n")
+            print("\n[!] Could not connect to mirror database.db\n")
 
         try:
             cursor.execute("SELECT * FROM repos ORDER BY " + order_mode + limit)
@@ -61,15 +61,15 @@ def order(order_mode, limit):
             return rows
 
         except:
-            print("\n[!] No se pueden mostrar los resutaldos o no existen datos.")
-            print("[!] Utiliza el parámetro -t para hacer el test\n")
+            print("\n[!] Resolves cannot be displayed or no data exists.")
+            print("[!] Use the -t parameter to take the test\n")
 
         finally:
             cursor.close()
             conn.close()
 
     else:
-        print("\n[!] Utiliza el parámetro -t para hacer el test\n")
+        print("\n[!] Use the -t parameter to take the test\n")
 
 # Returns a list with the data of the indicated ID's
 def server_sel(select):
@@ -79,7 +79,7 @@ def server_sel(select):
         cursor= conn.cursor()
 
     except:
-        print("\n[!] No se ha podido conectar con la base de datos mirror.db\n")
+        print("\n[!] Could not connect to mirror database.db\n")
 
     try:
         cursor.execute("SELECT * FROM repos WHERE ID IN (" + select + ")")
@@ -87,8 +87,8 @@ def server_sel(select):
         return sel
 
     except:
-        print("\n[!] No se pueden mostrar los resutaldos o no existen esos datos.")
-        print("[!] Utiliza el parámetro -t para hacer un nuevo test\n")
+        print("\n[!] Resolves cannot be displayed or such data does not exist.")
+        print("[!] Use the -t parameter to take the test\n")
 
     finally:
         cursor.close()

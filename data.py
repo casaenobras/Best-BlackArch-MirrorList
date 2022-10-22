@@ -21,7 +21,7 @@ def get_mirrorList():
                 list_mirrors.append(line)
 
     except:
-        print("\n[!] No se puede conectar con " + url_mirrorList + ". Comprueba tu conexión a internet")
+        print("\n[!] Unable to connect to " + url_mirrorList + ". Check your internet connection")
         sys.exit(1)
         
     return list_mirrors

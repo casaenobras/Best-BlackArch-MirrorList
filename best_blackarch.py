@@ -40,7 +40,7 @@ def main(argv):
         opts, args = getopt.getopt(argv, "hto:n:s:")
 
     except getopt.GetoptError:
-        print("\n[!] Opción no válida!!")
+        print("\n[!] Invalid option!!")
         help_panel()
         sys.exit(1)
 
