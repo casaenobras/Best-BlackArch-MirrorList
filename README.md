@@ -8,7 +8,7 @@ You can install BlackArch, or its repository on ArchLinux from your [web](https:
     - [Table of contents](#table-of-contents)
 - [What does](#what-does)
 - [How to use](#how-to-use)
-    - [Parameters:](#parameters)
+  - [Parameters:](#parameters)
 - [Requirements](#requirements)
 
 
@@ -40,13 +40,15 @@ or
 python3 best_blackarch.py [param]
 ~~~  
 
-### Parameters:
+## Parameters:
 
 + **-h**     Displays the help panel
+
   ~~~
   ./best_blackarch -h
   ~~~
 + **-t**     Take a new test and save the results for examination
+
   ~~~
   ./best_blackarch -t
   ~~~
@@ -54,14 +56,17 @@ python3 best_blackarch.py [param]
     + download_speed: From highest to lowest download speed
     + total_time: From shorter to longer to complete the entire process
     + connect_time: From shorter to longer to make the connection
+  
   ~~~
   ./best_blackarch -o download_speed
   ~~~
 + **-n**     Indicates the number of lines to be displayed
+
   ~~~
   ./best_blackarch -o download_speed -n 10
   ~~~
 + **-s**     Uncomments the selected servers in the blackarch-mirrorlist file and comments out the remaining servers
+
   ~~~
   ./best_blackarch -s 20,53,59
   ~~~
