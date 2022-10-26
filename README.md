@@ -1,33 +1,37 @@
 # Best-BlackArch-MirrorList
 
-Este Script para consola está escrito en python3, es para distribuciones ArchLinux con los repositorios de BlackArch para pentesting.  
-Puede instalar BlackArch, o su repositorio en ArchLinux desde su [web](https://www.blackarch.org/)
+This Console Script is written in python3, it is for ArchLinux distributions with BlackArch repositories for pentesting.  
+You can install BlackArch, or its repository on ArchLinux from your [web](https://www.blackarch.org/).
 
+### Table of contents
 - [Best-BlackArch-MirrorList](#best-blackarch-mirrorlist)
-- [Que hace](#que-hace)
-- [Modo de uso](#modo-de-uso)
-    - [Parámetros:](#parámetros)
+    - [Table of contents](#table-of-contents)
+- [What does](#what-does)
+- [How to use](#how-to-use)
+    - [Parameters:](#parameters)
+- [Requirements](#requirements)
 
 
-# Que hace
+# What does
 
-+ Se descarga la última version el archivo blackarch-mirrorlist desde su [github](https://github.com/BlackArch/blackarch-site/blob/master/blackarch-mirrorlist)
-+ Realiza un test de descarga de un archivo aleatorio con un tamaño entre 1Mb y 2Mb (ideal para conexiones lentas)  
-  de todos los mirrors que existen en blackarch-mirrorlist
-+ Crea una base de datos sqlite para examinar los resulatados más adelante
-+ Muestra los resultados por consola en una tabla
-+ Crea una copia de seguridad del archivo **/etc/pacman.d/blackarch-mirrorlist** con extensión .OLD,  
-  descomenta los mirrors seleccionados y comenta los restantes(es necesario tener permisos de root)
++ The latest version of the blackarch-mirrorlist file is downloaded from its [github](https://github.com/BlackArch/blackarch-site/blob/master/blackarch-mirrorlist).
++ Perform a download test of a random file with a size between 1Mb and 2Mb (ideal for slow connections)  
+  of all the mirrors that exist in blackarch-mirrorlist.
++ Create a sqlite database to examine the results later.
++ Show the results by console in a table.
++ Create a backup of the file **/etc/pacman.d/blackarch-mirrorlist** with extension **.OLD**,  
+  uncomment the selected mirrors and comment the rest (root permissions required).
 
-Con esto se asegura un mejor funcionamiento y velocidad en descargas y actualizaciones desde el repositorio de BlackArch
+This ensures better performance and speed in downloads and updates from the BlackArch repository.
 
-# Modo de uso
+# How to use
 
-Para poder usar este script clone este repositorio en un directorio, de permisos de ejecución al archivo *best_blackarch.py*.
+In order to use this script clone this repository into a directory, give execute permissions to the **best_blackarch.py** file.
 ~~~
+  git clone https://github.com/casaenobras/Best-BlackArch-MirrorList
   chmod +x best_blackarch.py
 ~~~
-Ejecutelo:  
+run it:  
 ~~~
 ./best_blackarch.py [param]
 ~~~  
@@ -36,7 +40,7 @@ or
 python3 best_blackarch.py [param]
 ~~~  
 
-### Parámetros:
+### Parameters:
 
 + **-h**     Displays the help panel
   ~~~
@@ -62,8 +66,17 @@ python3 best_blackarch.py [param]
   ./best_blackarch -s 20,53,59
   ~~~
 
-De una manera más rápida se pueden unir parametros:
+Parameters can be attached:
+In this example it will first perform the test and immediately display the first five lines ordered by total time.
+
 ~~~
   ./best_blackarch -t -o total_time -n 5
 ~~~
-En este ejemplo primero realizará el test e inmediatamente mostrará las cinco primeras lineas ordenadas por el tiempo total
+
+# Requirements
+
+See requirements.txt or execute
+
+~~~
+  pip install -r requirements.txt
+~~~
