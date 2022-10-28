@@ -47,6 +47,8 @@ def save_file(select):
             file.writelines(content)
         
         file.close()
+
+        print("\n[+] The changes have been made successfully!!\n")
     
     except:
 

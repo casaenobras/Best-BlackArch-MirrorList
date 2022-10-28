@@ -1,7 +1,9 @@
 
+import imp
 import pycurl, sys, requests, re, random
 
 from pwn import *
+from sh import pkill
 
  
 # Return a list with the servers extracted from the official website
@@ -101,7 +103,7 @@ def get_datos(mirrorlist):
 
 def def_handler(sig, frame):
     print("\n[!] Exiting.....\n")
-    sys.exit(1)
+    pkill("best_blackarch")
 
 # Ctrl+C
 signal.signal(signal.SIGINT, def_handler)

@@ -76,8 +76,14 @@ Parameters can be attached:
 In this example it will first perform the test and immediately display the first five lines ordered by total time.
 
 ~~~
-  ./best_blackarch -t -o total_time -n 5
+  ./best_blackarch -t -o download_speed -n 5
 ~~~
+
+<p align="center">
+<img src="images/image1.png" 
+        style="float: left: margin-right:
+        10px;" />
+</p>
 
 # Requirements
 
