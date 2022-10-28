@@ -29,6 +29,7 @@ This ensures better performance and speed in downloads and updates from the Blac
 In order to use this script clone this repository into a directory, give execute permissions to the **best_blackarch.py** file.
 ~~~
   git clone https://github.com/casaenobras/Best-BlackArch-MirrorList
+  cd Best-BlackArch-MirrorList 
   chmod +x best_blackarch.py
 ~~~
 run it:  

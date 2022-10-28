@@ -1,3 +1,4 @@
+
 import sqlite3, os
 
 from data import *
@@ -32,6 +33,7 @@ def create_db():
 
     except:
         print("\n[!] Unable to enter data into database\n")
+        sys.exit(1)
 
     finally:
         cursor.close()
