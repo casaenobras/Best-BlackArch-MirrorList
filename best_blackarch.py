@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 #coding: utf-8
 
-import sys, getopt
+import sys
+import getopt
 
 from data import *
 from bbdd import *
@@ -12,8 +13,10 @@ from save_file import *
 order_mode = None
 
 # Show help
+
+
 def help_panel():
-    
+
     print("\n[*] This script tests the mirrors in the BlackArch repository, displays the results and replaces the blackarch-mirrorlist file for faster download and update")
     print("\n[*] How to use:")
     print("\n\t-h     Displays this help panel")
@@ -27,8 +30,6 @@ def help_panel():
     print("\t            Create a blackarch-mirrorlist.old backup")
     print("\t            Root permissions are required to replace blackarch-mirrorlist file.")
     print("\t            The argument is the ID,s of the results obtained. Ex: ./best_blackarch.py -s 20,53,30...")
-
-
 
 
 def main(argv):
@@ -73,8 +74,8 @@ def main(argv):
 
     if order is None:
         help_panel()
-    
-    
+
+
 if __name__ == '__main__':
 
     main(sys.argv[1:])

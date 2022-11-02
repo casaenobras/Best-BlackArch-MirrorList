@@ -1,11 +1,14 @@
 
-import imp
-import pycurl, sys, requests, re, random
+import pycurl
+import sys
+import requests
+import re
+import random
 
 from pwn import *
 from sh import pkill
 
- 
+
 # Return a list with the servers extracted from the official website
 def get_mirrorList():
 
@@ -24,12 +27,15 @@ def get_mirrorList():
                 list_mirrors.append(line)
 
     except:
-        print("\n[!] Unable to connect to " + url_mirrorList + ". Check your internet connection")
+        print("\n[!] Unable to connect to " + url_mirrorList +
+              ". Check your internet connection")
         sys.exit(1)
-        
+
     return list_mirrors
 
 # Returns a random file from the server to perform the test
+
+
 def get_random_file(mirrorlist):
 
     files = []
@@ -43,12 +49,12 @@ def get_random_file(mirrorlist):
     data = data.split()
 
     for line in data:
-        
+
         if re.findall('^href', line):
             index_1 = line.index('"') + 1
             index_2 = line.index('>') - 1
             file_name_temp = str(line[index_1:index_2])
-            
+
             if not re.findall('sig$', file_name_temp):
                 file_name = file_name_temp
 
@@ -61,10 +67,12 @@ def get_random_file(mirrorlist):
     n_files = len(files)
 
     r = random.randint(0, n_files)
- 
+
     return files[r]
 
 # Returns a list of data obtained from each server
+
+
 def get_datos(mirrorlist):
 
     file_test = "blackarch/os/x86_64/" + get_random_file(mirrorlist)
@@ -80,7 +88,8 @@ def get_datos(mirrorlist):
         c.setopt(pycurl.CONNECTTIMEOUT, 10)
 
         try:
-            progress.status(server + " " + str(acco_mirrors) + " of " + str(n_mirrors))
+            progress.status(server + " " + str(acco_mirrors) +
+                            " of " + str(n_mirrors))
             c.perform_rb()
 
             CONNECT_TIME = c.getinfo(c.CONNECT_TIME)
@@ -88,11 +97,12 @@ def get_datos(mirrorlist):
             SIZE_DOWNLOAD = c.getinfo(c.SIZE_DOWNLOAD)
             SPEED_DOWNLOAD = c.getinfo(c.SPEED_DOWNLOAD)
 
-            server_result = (str(server), int(SIZE_DOWNLOAD / 1024), int(SPEED_DOWNLOAD / 1024), int(CONNECT_TIME * 1000), int(TOTAL_TIME * 1000))
+            server_result = (str(server), int(SIZE_DOWNLOAD / 1024), int(
+                SPEED_DOWNLOAD / 1024), int(CONNECT_TIME * 1000), int(TOTAL_TIME * 1000))
 
             data_list.append(server_result)
-            
-        except :
+
+        except:
             pass
 
         c.close()
@@ -101,9 +111,11 @@ def get_datos(mirrorlist):
 
     return data_list
 
+
 def def_handler(sig, frame):
     print("\n[!] Exiting.....\n")
     pkill("best_blackarch")
+
 
 # Ctrl+C
 signal.signal(signal.SIGINT, def_handler)

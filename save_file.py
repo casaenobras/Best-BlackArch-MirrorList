@@ -1,10 +1,13 @@
 
-import shutil, sys, os, requests
+import shutil
+import sys
+import os
+import requests
 
 from bbdd import server_sel
 
 
-# Create a backup of "blackarch-mirrorlist", update it from the official page and 
+# Create a backup of "blackarch-mirrorlist", update it from the official page and
 # uncomments selected mirrors
 def save_file(select):
 
@@ -14,8 +17,8 @@ def save_file(select):
     sel = server_sel(select)
     content = list()
 
-    euid = os.geteuid() 
-    if euid != 0: 
+    euid = os.geteuid()
+    if euid != 0:
         args = ['sudo', sys.executable] + sys.argv + [os.environ]
         os.execlpe('sudo', *args)
 
@@ -25,9 +28,9 @@ def save_file(select):
         data = requests.get(url_mirrorList).text
         with open(original_file, 'w') as file:
             file.writelines(data)
-        
+
         file.close()
-        
+
         with open(original_file, 'r') as file:
             content = file.readlines()
             for index, linea in enumerate(content):
@@ -42,15 +45,14 @@ def save_file(select):
                 if server[1] in linea:
                     linea = linea[1:]
                     content[index] = linea
-        
+
         with open(original_file, 'w') as file:
             file.writelines(content)
-        
+
         file.close()
 
         print("\n[+] The changes have been made successfully!!\n")
-    
+
     except:
 
         shutil.copy(backup_file, original_file)
-    
