@@ -88,8 +88,9 @@ def get_datos(mirrorlist):
         c.setopt(pycurl.CONNECTTIMEOUT, 10)
 
         try:
-            progress.status(server + " " + str(acco_mirrors) +
-                            " of " + str(n_mirrors))
+
+            progress.status("%s %s of %s" %
+                            (server, str(acco_mirrors), str(n_mirrors)))
             c.perform_rb()
 
             CONNECT_TIME = c.getinfo(c.CONNECT_TIME)
